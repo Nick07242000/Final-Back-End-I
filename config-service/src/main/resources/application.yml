@@ -1,0 +1,36 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  zipkin:
+    enabled: true
+    baseUrl: http://zipkin:9411
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Nick07242000/Final-Back-End-I
+          searchPaths: spring-cloud-config
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+info:
+  app:
+    name: config-service
+    description: Config Server for Back End I Final
+    version: 1.0.0
+
