@@ -1,45 +1,20 @@
-version: "3.9"
+version: "3"
+networks:
+  default:
+    name: tp_final_network
 services:
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: "zipkin"
+    ports:
+      - "9411:9411"
   rabbitmq:
     image: rabbitmq:3.7.2-management
+    container_name: "rabbitmq"
     ports:
       - "15672:15672"
       - "5672:5672"
-  zipkin:
-    image: openzipkin/zipkin
-    ports:
-      - "9411:9411"
-  eureka-service:
-    image: eureka-service
-    ports:
-      - "8761:8761"
-    restart: always
-  config-service:
-    image: config-service
-    ports:
-      - "8888:8888"
-    restart: always
-  api-gateway:
-    image: api-gateway
-    ports:
-      - "8080:8080"
-    restart: always
-  series-service:
-    image: series-service
-    ports:
-      - "8086:8086"
-    restart: always
-  movie-service:
-    image: movie-service
-    ports:
-      - "8082:8082"
-    restart: always
-  catalog-service:
-    image: catalog-service
-    ports:
-      - "8084:8084"
-    restart: always
-  mongo-seriedb:
+  mongo-serie:
     image: mongo
     container_name: "mongo-serie"
     command: mongod --auth
@@ -49,7 +24,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=rootpass
     ports:
       - "27017:27017"
-  mongo-catalogdb:
+  mongo-catalog:
     image: mongo
     container_name: "mongo-catalog"
     command: mongod --auth
@@ -60,19 +35,47 @@ services:
     ports:
       - "27018:27017"
   mysqldb:
-    image: mysql
-    ports:
-      - 3306:3306
+    image: mysql:8.0
+    container_name: "mysqldb"
+    restart: always
     environment:
-      - MYSQL_DATABASE=Movies
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=pass
-      - MYSQL_ROOT_PASSWORD=pass
-  redis:
-    image: redis
+      - MYSQL_DATABASE=Movie
+      - MYSQL_ROOT_PASSWORD=rootpass
     ports:
-     - "6379:6379"
-
-networks:
-  default:
-    name: tp_final_network
+      - '3306:3306'
+  eureka-service:
+    image: eureka-service
+    container_name: "eureka-service"
+    ports:
+      - "8761:8761"
+    restart: always
+  config-service:
+    image: config-service
+    container_name: "config-service"
+    ports:
+      - "8888:8888"
+    restart: always
+  movie-service:
+    image: movie-service
+    container_name: "movie-service"
+    ports:
+      - "8082:8082"
+    restart: always
+  serie-service:
+    image: serie-service
+    container_name: "serie-service"
+    ports:
+      - "8084:8084"
+    restart: always
+  catalog-service:
+    image: catalog-service
+    container_name: "catalog-service"
+    ports:
+      - "8086:8086"
+    restart: always
+  gateway-service:
+    image: gateway-service
+    container_name: "gateway-service"
+    ports:
+      - "8080:8080"
+    restart: always

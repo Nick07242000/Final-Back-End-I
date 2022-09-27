@@ -1,25 +1,31 @@
 cd eureka-service/
-sh make.sh
+mvn clean && mvn package -DskipTests
+docker build . -t eureka-service
 cd ..
 
 cd config-service/
-sh make.sh
+mvn clean && mvn package -DskipTests
+docker build . -t config-service
 cd ..
 
 cd movie-service/
-sh make.sh
+mvn clean && mvn package -DskipTests
+docker build . -t movie-service
 cd ..
 
 cd serie-service/
-sh make.sh
+mvn clean && mvn package -DskipTests
+docker build . -t serie-service
 cd ..
 
-catalog-service/
-sh make.sh
+cd catalog-service/
+mvn clean && mvn package -DskipTests
+docker build . -t catalog-service
 cd ..
 
 cd gateway-service/
-sh make.sh
+mvn clean && mvn package -DskipTests
+docker build . -t gateway-service
 cd ..
 
 docker-compose up

@@ -1,4 +1,4 @@
-FROM openjdk:17-oracle
+FROM openjdk:17-alpine
 RUN apk update && apk add bash
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
