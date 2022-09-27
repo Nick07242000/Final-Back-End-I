@@ -1,0 +1,47 @@
+package com.fnh.catalogservice.domain.model;
+
+public class Chapter {
+    private Integer id;
+    private String name;
+    private Integer number;
+    private String urlStream;
+
+    public Chapter() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public Integer getNumber() {
+        return number;
+    }
+    public String getUrlStream() {
+        return urlStream;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+    public void setUrlStream(String urlStream) {
+        this.urlStream = urlStream;
+    }
+
+    @Override
+    public String toString() {
+        return "{\"Chapter\":{"
+                + "\"id\":\"" + id + "\""
+                + ", \"name\":\"" + name + "\""
+                + ", \"number\":\"" + number + "\""
+                + ", \"url\":\"" + urlStream + "\""
+                + "}}";
+    }
+}
